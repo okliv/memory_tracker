@@ -1,6 +1,6 @@
 module MemoryTracker
   class Request
-    include PS
+    # include Sys
 
     attr_reader :start_gcstat, :end_gcstat
     attr_reader :gcstat_delta
