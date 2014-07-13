@@ -7,7 +7,8 @@ module MemoryTracker
 
       begin
         routes_env = { :method => env['REQUEST_METHOD'] }
-        request = Rails.application.routes.recognize_path(env['REQUEST_PATH'], routes_env)
+        # request = Rails.application.routes.recognize_path(env['REQUEST_PATH'], routes_env)
+        request = Rails.application.routes.recognize_path(@path, routes_env)
         @controller = request[:controller]
         @action     = request[:action]
       rescue ActionController::RoutingError

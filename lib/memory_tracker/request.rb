@@ -22,12 +22,21 @@ module MemoryTracker
 
     private
 
+    # def self.rss
+    #   rss = ProcTable.ps(Process.pid).rss * 0.004096
+    # end
+    #
+    # def self.vsize
+    #   vsize = ProcTable.ps(Process.pid).vsize * 0.000001
+    # end
+
     def self.rss
-      rss = ProcTable.ps(Process.pid).rss * 0.004096
+      rss = PS.pid(Process.pid).first.rss / 1024 #* 0.004096
     end
 
     def self.vsize
-      vsize = ProcTable.ps(Process.pid).vsize * 0.000001
+      vsize = PS.pid(Process.pid).first.vsize / 1024
     end
+
   end
 end
