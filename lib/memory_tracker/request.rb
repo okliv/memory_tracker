@@ -31,11 +31,11 @@ module MemoryTracker
     # end
 
     def self.rss
-      rss = PS.pid(Process.pid).first.rss / 1024 rescue 0 #* 0.004096
+      rss = PS.pid(Process.pid).first.rss / 1024 rescue 1 #* 0.004096
     end
 
     def self.vsize
-      vsize = PS.pid(Process.pid).first.vsize / 1024 rescue 0
+      vsize = PS.pid(Process.pid).first.vsize / 1024 rescue 1
     end
 
   end
