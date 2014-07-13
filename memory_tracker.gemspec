@@ -50,7 +50,7 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT"]
   s.rubygems_version = "2.0.3"
 
-  s.add_runtime_dependency(%q<ps>, [">= 0"])
+  s.add_runtime_dependency(%q<sys-proctable>, [">= 0"])
   s.add_runtime_dependency(%q<activesupport>, [">= 0"])
   s.add_development_dependency(%q<debugger>, [">= 0"])
   s.add_development_dependency(%q<rspec>, ["~> 2.14.0"])
