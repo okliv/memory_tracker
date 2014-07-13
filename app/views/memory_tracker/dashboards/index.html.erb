@@ -1,9 +1,9 @@
 <h1>Current State</h1>
 <table width='300px'>
-<tr><td>Stats displayed for pid</td><td><%= @pid %></td></tr>
-<tr><td>Current RSS</td><td><%= '%.1f' % @rss %>MB</td></tr>
-<tr><td>Current VSIZE</td><td><%= '%.1f' % @vsize %>MB</td></tr>
-<tr><td>Number of ruby heaps</td><td><%= @num_heaps %></td></tr>
+  <tr><td>Stats displayed for pid</td><td><%= @pid %></td></tr>
+  <tr><td>Current RSS</td><td><%= '%.1f' % @rss %>MB</td></tr>
+  <tr><td>Current VSIZE</td><td><%= '%.1f' % @vsize %>MB</td></tr>
+  <tr><td>Number of ruby heaps</td><td><%= @num_heaps %></td></tr>
 </table>
 <br/>
 
@@ -16,30 +16,33 @@
     <th><%= link_to_dashboards('Action') %></th>
     <th><%= link_to_dashboards('num') %></th>
     <% keys.each do |key| %>
-      <th><%= link_to_dashboards(key) %></th>
+        <th><%= link_to_dashboards(key) %></th>
     <% end %>
   </tr>
   <% @data.each do |row| %>
-    <tr>
-      <td><%= "#{row[:controller]}" %></td>
-      <td><%= "#{row[:action]}" %></td>
-      <td><%= row[:num] %></td>
-      <% keys.each do |key| %>
-        <td><%= display_num(row[key], row[:num]) %></td>
-      <% end %>
-    </tr>
+      <tr>
+        <td><%= "#{row[:controller]}" %></td>
+        <td><%= "#{row[:action]}" %></td>
+        <td><%= row[:num] %></td>
+        <% keys.each do |key| %>
+            <td><%= display_num(row[key], row[:num]) %></td>
+        <% end %>
+      </tr>
   <% end %>
 </table>
 
 <h2>Legend</h2>
 <p>All numbers are average per controller action HTTP request served.</p>
 <i>
-<ul>
-<li>num: number of HTTP requests</li>
-<li>rss: resident memory (MB)</li>
-<li>vsize: virtual memory (MB)</lib>
-<li>count: number of times the garbage collector ran</li>
-<li>total_allocated_object: number of objects allocated on the ruby heaps</li>
-<li>heap_used: number of allocated ruby heaps</li>
-</ul>
+  <dl>
+    <dt>num: number of HTTP requests</dt>
+    <dt>rss: resident memory (MB)</dt>
+    <dt>vsize: virtual memory (MB)</dt>
+    <dd>rss and vsize should be very low in a memory conscious application</dd>
+    <dt>count: number of times the garbage collector ran</dt>
+    <dt>total_allocated_object: number of objects allocated on the ruby heaps</dt>
+    <dd>total_allocated_heaps should mostly be in the same range for all controller actions. Outliers are the ones causing memory bloat.</dd>
+    <dt>heap_used: number of allocated ruby heaps. </dt>
+    <dd>You want the heap_used to be 0, always. If not 0, it means this controller action asked for an amount of memory that required the allocation of new heaps.</dd>
+  </dl>
 </i>
