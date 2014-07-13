@@ -12,4 +12,4 @@ gemspec
 
 # To use debugger
 gem 'ps'
-gem 'debugger'
+# gem 'debugger'
