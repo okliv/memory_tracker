@@ -22,20 +22,20 @@ module MemoryTracker
 
     private
 
-    def self.ps_lib
-      RUBY_PLATFORM.include?('darwin') ? PS : ProcTable
+    def self.ps_data_provider
+      RUBY_PLATFORM.include?('darwin') ? PS.pid(Process.pid) : ProcTable.ps(Process.pid)
     end
 
-    def self.ps_lib_pid
-      [*ps_lib.pid(Process.pid)].first
+    def self.ps_data
+      [*ps_data_provider].first
     end
 
     def self.rss
-      ps_lib_pid.rss / 1024 #* 0.004096
+      ps_data.rss / 1024 #* 0.004096
     end
 
     def self.vsize
-      ps_lib_pid.vsize / 1024
+      ps_data.vsize / 1024
     end
 
     # def self.rss
