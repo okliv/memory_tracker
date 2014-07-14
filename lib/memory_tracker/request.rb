@@ -1,6 +1,6 @@
 module MemoryTracker
   class Request
-    # include Sys
+    include Sys if RUBY_PLATFORM.include?('linux')
 
     attr_reader :start_gcstat, :end_gcstat
     attr_reader :gcstat_delta
@@ -22,6 +22,22 @@ module MemoryTracker
 
     private
 
+    def self.ps_lib
+      RUBY_PLATFORM.include?('darwin') ? PS : ProcTable
+    end
+
+    def self.ps_lib_pid
+      [*ps_lib.pid(Process.pid)].first
+    end
+
+    def self.rss
+      ps_lib_pid.rss / 1024 #* 0.004096
+    end
+
+    def self.vsize
+      ps_lib_pid.vsize / 1024
+    end
+
     # def self.rss
     #   rss = ProcTable.ps(Process.pid).rss * 0.004096
     # end
@@ -30,13 +46,6 @@ module MemoryTracker
     #   vsize = ProcTable.ps(Process.pid).vsize * 0.000001
     # end
 
-    def self.rss
-      rss = PS.pid(Process.pid).first.rss / 1024 #* 0.004096
-    end
-
-    def self.vsize
-      vsize = PS.pid(Process.pid).first.vsize / 1024
-    end
 
   end
 end

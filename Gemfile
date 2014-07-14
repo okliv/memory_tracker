@@ -11,5 +11,10 @@ gemspec
 # your gem to rubygems.org.
 
 # To use debugger
-gem 'ps'
+if RUBY_PLATFORM.include?('darwin')
+  gem 'ps'
+else
+  gem 'sys-proctable'
+end
+
 # gem 'debugger'
