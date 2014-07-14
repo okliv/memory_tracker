@@ -34,7 +34,7 @@ module MemoryTracker
     def self.vsize
       vsize =
           if RUBY_PLATFORM.include?('darwin')
-            PS.pid(Process.pid).vsize / 1024
+            PS.pid(Process.pid).first.vsize / 1024
           else
             ProcTable.ps(Process.pid).vsize * 0.000001
           end
