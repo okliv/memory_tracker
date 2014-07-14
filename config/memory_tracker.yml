@@ -1,7 +1,7 @@
 defaults:   &defaults
   stores:
     - name: memory
-      window_length: 14400
+      window_length: 72000
     - name: url_logfile
       filename: log/memtracker_urls.log
       logger_class: Logger
